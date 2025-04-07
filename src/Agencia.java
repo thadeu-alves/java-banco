@@ -25,10 +25,8 @@ public class Agencia{
         this.contas = new ArrayList<Conta>();
     }
     
-    //métodos
+
     public void adicionarConta(){
-        
-        
         String titulo;
         int numero;
         double valorInicial;
@@ -44,8 +42,9 @@ public class Agencia{
         adicionarConta( titulo, numero, valorInicial, senha);
         
     }
-    public void adicionarConta(String titulo,int numero,double valorInicial,int senha){
-        if(titulo != null && !titulo.equals("") && numero >0 && valorInicial>=0){
+
+    public void adicionarConta(String titulo,int numero, double valorInicial, int senha){
+        if(titulo != null && !titulo.equals("") && numero>0 && valorInicial>=0){
             Conta conta = new Conta(titulo,numero,valorInicial,senha);
             this.contas.add(conta);
             System.out.println("Conta criada com sucesso.");
@@ -55,9 +54,9 @@ public class Agencia{
         }
         
     }
+
     public  Conta buscarConta(int numero){
         if(this.contas.size()>0){
-            
             boolean achouConta = false;
             int senhaAtual;
             int i = 0;
@@ -89,7 +88,7 @@ public class Agencia{
                 else{
                     i++;
                 }
-           }while(i<this.contas.size() && achouConta == false);
+           }while(i<this.contas.size() && !achouConta);
            System.out.println("Conta não encontrada");
            return null;
         }
