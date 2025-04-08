@@ -55,7 +55,11 @@ public class Agencia{
         
     }
 
-    public  Conta buscarConta(int numero){
+    public  Conta buscarConta(){
+        System.out.println("Digite o numero da conta: ");
+
+        int numero = scNum.nextInt();
+
         if(this.contas.size()>0){
             boolean achouConta = false;
             int senhaAtual;
@@ -97,13 +101,13 @@ public class Agencia{
         return null;
         
     }
-    public void operacaoNaConta(int numero, int operacao, int valor){
-        if(numero !=0 && (operacao == 0 || operacao == 1) && valor>0){
-            Conta conta = buscarConta(numero);
+    public void operacaoNaConta(int operacao, double valor){
+        if((operacao == 1 || operacao == 2) && valor>0){
+            Conta conta = buscarConta();
             if(conta != null){
                 switch (operacao) {
-                    case 0:conta.depositar(valor);break;
-                    case 1:conta.sacar(valor);break;
+                    case 1:conta.depositar(valor);break;
+                    case 2:conta.sacar(valor);break;
                     default:break;
                 }
             }
@@ -111,6 +115,35 @@ public class Agencia{
         else{
             System.out.println("Algum dos dados está inválido.");
         }
+    }
+
+    public void menuConta(Conta conta){
+        int op = -1;
+        while (op!=0){
+            System.out.println(conta.titular + ", faça operações na sua conta.");
+            System.out.println("Seu saldo atual é de: " + conta.saldo);
+            System.out.println("[1] - Depositar \n[2] - Sacar \n[0] - Sair");
+            op = scNum.nextInt();
+            if(op == 1 || op == 2){
+                System.out.println("Digite o valor: ");
+                double valor = scNum.nextDouble();
+                this.operacaoNaConta(op, valor);
+            }else if(op == 0){
+                return;
+            }else{
+                System.out.println("Essa opção não existe meu camarada;");
+            }
+        }
+    }
+
+    public void acessoConta(){
+        Conta conta = this.buscarConta();
+
+        if(conta == null){
+            System.out.println("Conta não encontrada");
+        }
+
+        this.menuConta(conta);
     }
 }
 
